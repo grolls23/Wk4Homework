@@ -48,6 +48,11 @@ Join Datasets
 gii_spatial <- hdr_diff %>%
   left_join(., country_borders)
 
+
+#Clean up dataframe - light version of gii_spatial
+gii_light <- gii_spatial %>%
+  select("iso3", "gii_diff", "COUNTRY", "geometry")
+
 ```
 
 
