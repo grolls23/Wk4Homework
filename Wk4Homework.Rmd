@@ -34,10 +34,21 @@ hdr_diff <- hdr_light %>%
   mutate(., "gii_diff" = gii_2021 - gii_2010)
 
 #Add new column to country_borders corresponding to iso3c (convert from iso2c)
-#I will use AFF_ISO over ISO because I only want to include sovereign states and not overseas territories like Aruba or American Samoa
+#I will use the ISO column over AFF_ISO because I only want to include sovereign states and not overseas territories like Aruba or American Samoa
 country_borders <- country_borders %>%
-  mutate(., "iso3" = countrycode(country_borders$AFF_ISO, origin = 'iso2c', destination = 'iso3c'))
+  mutate(., "iso3" = countrycode(country_borders$ISO, origin = 'iso2c', destination = 'iso3c'))
 
 ```
+
+Join Datasets
+```{r}
+
+#Left join - country borders 'onto' hdr data
+#I won't drop NAs just yet because I want to allow the mapmaker to handle those cases as they please
+gii_spatial <- hdr_diff %>%
+  left_join(., country_borders)
+
+```
+
 
 
